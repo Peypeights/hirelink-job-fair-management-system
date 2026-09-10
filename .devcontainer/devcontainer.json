@@ -1,0 +1,26 @@
+{
+  "name": "HireLink Development Environment",
+
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "usernamehw.errorlens",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "zhuangtongfa.Material-theme",
+        "Supabase.vscode-supabase-extension"
+      ]
+    }
+  },
+
+  "forwardPorts": [3000],
+
+  "portsAttributes": {
+    "3000": {
+      "label": "HireLink Next.js",
+      "onAutoForward": "openPreview"
+    }
+  }
+}
