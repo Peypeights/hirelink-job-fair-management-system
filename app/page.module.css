@@ -148,3 +148,15 @@ a.secondary {
   padding: 0.1em 0.4em;
   border-radius: 6px;
 }
+
+.test1 {
+  color: red;
+}
+
+.test2 {
+  color: pink;
+}
+
+.test3 {
+  color: purple;
+}
