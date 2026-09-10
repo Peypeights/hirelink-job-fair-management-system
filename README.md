@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HireLink Job Fair Management System
+
+HireLink is a web-based Job Fair Management System developed for our Web Systems and Technologies 2 course.
+
+The system is designed to organize common job fair activities in one platform. Applicants will be able to browse job opportunities and submit applications, while company representatives can manage job postings and review applicants. Job fair staff will handle reviews and interview schedules, while administrators will manage accounts, categories, and reports.
+
+## Project Status
+
+🚧 Currently under development.
+
+The project is being developed as the final project for ITS122P - Web Systems and Technologies 2.
+
+## Planned User Roles
+
+### Applicant
+- Browse approved job postings
+- Search and filter jobs
+- Submit job applications
+- View application status
+- View interview details
+
+### Company Representative
+- Create and manage a company profile
+- Create and manage job postings
+- View applicants for their own jobs
+- Record allowed hiring decisions
+
+### Staff
+- Review company registrations
+- Review job postings
+- Process applications
+- Create and manage interview schedules
+
+### Administrator
+- Manage user accounts and roles
+- Manage job categories
+- View basic system reports
+- Perform staff actions when necessary
+
+## Planned Features
+
+- User registration and authentication
+- Role-based access
+- Company profile management
+- Job posting management
+- Job search and category filtering
+- Job application management
+- Application status tracking
+- Interview scheduling
+- User management
+- Job category management
+- Basic reports
+
+## Technology Stack
+
+### Frontend
+- HTML
+- CSS
+- JavaScript
+- React
+- Next.js
+
+### Backend
+- Next.js Route Handlers
+
+### Database and Authentication
+- Supabase
+- PostgreSQL
+- Supabase Auth
+
+### Deployment
+- Vercel
+
+### Version Control and Collaboration
+- Git
+- GitHub
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+The project is currently developed using:
+
+- Node.js v24.21.0
+- npm v11.19.0
+- Git
+
+Using the same Node.js and npm versions is recommended to keep the development environment consistent across the team.
+
+### Installation
+
+Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/Peypeights/hirelink-job-fair-management-system
