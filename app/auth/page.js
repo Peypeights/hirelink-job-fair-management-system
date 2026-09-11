@@ -129,27 +129,16 @@ export default function AuthPage() {
   async function handleOAuth(provider) {
     setMessage("");
     setMessageType("");
-
-    /*
-      When someone signs up with Google/Facebook,
-      we remember their selected public role.
-
-      We'll use this when we connect OAuth users
-      to user_profiles.
-    */
-
-    if (mode === "signup") {
-      localStorage.setItem("hirelink_pending_role", role);
-    }
-
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-
+    
+    const { error } =
+      await supabase.auth.signInWithOAuth({
+        provider,
+      
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+    
     if (error) {
       showError(error.message);
     }
