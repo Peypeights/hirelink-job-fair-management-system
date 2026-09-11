@@ -1,0 +1,1087 @@
+.page {
+  min-height: 100vh;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(169, 156, 255, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(109, 93, 251, 0.12),
+      transparent 35%
+    ),
+    #f7f7fb;
+
+  color: #1b1c28;
+}
+
+.authContainer {
+  width: min(1400px, 100%);
+  min-height: 880px;
+
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background: #191a25;
+
+  border: 1px solid #e4e4ed;
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 30px 80px rgba(41, 42, 58, 0.08),
+    0 6px 20px rgba(41, 42, 58, 0.05);
+}
+
+/* =========================================================
+   LEFT HERO
+   ========================================================= */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  padding: 54px 62px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #191a25 0%,
+      #202033 48%,
+      #211c40 100%
+    );
+
+  color: white;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+
+  width: 450px;
+  height: 220px;
+
+  left: 150px;
+  bottom: -130px;
+
+  background: #6d5dfb;
+
+  filter: blur(110px);
+  opacity: 0.35;
+}
+
+.glowOne {
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  right: -250px;
+  top: -80px;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(109, 93, 251, 0.55);
+
+  box-shadow:
+    0 0 80px rgba(109, 93, 251, 0.35),
+    inset 0 0 80px rgba(109, 93, 251, 0.08);
+}
+
+.glowTwo {
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  left: -180px;
+  bottom: -40px;
+
+  border-radius: 50%;
+
+  background: rgba(109, 93, 251, 0.08);
+
+  box-shadow: 0 0 100px #6d5dfb;
+}
+
+.heroArc {
+  position: absolute;
+
+  width: 600px;
+  height: 600px;
+
+  border-radius: 50%;
+
+  right: -350px;
+  top: -120px;
+
+  border: 45px solid rgba(109, 93, 251, 0.05);
+
+  transform: rotate(30deg);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.logo h1 {
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.logo p {
+  margin-top: 2px;
+
+  color: #a9a9b9;
+
+  font-size: 13px;
+}
+
+.logoMark {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+}
+
+.logoMark span {
+  position: absolute;
+
+  width: 14px;
+  height: 46px;
+
+  border-radius: 7px 7px 3px 3px;
+
+  background: linear-gradient(
+    180deg,
+    #a99cff,
+    #6d5dfb
+  );
+}
+
+.logoMark span:first-child {
+  left: 5px;
+  transform: skewY(-28deg);
+}
+
+.logoMark span:last-child {
+  right: 5px;
+  transform: skewY(28deg);
+}
+
+.eyebrow {
+  margin-top: 55px;
+  margin-bottom: 20px;
+
+  color: #a99cff;
+
+  font-size: 11px;
+  font-weight: 650;
+
+  letter-spacing: 3px;
+}
+
+.eyebrow span {
+  padding: 0 8px;
+
+  color: #74758a;
+}
+
+.heroHeading h2 {
+  margin: 0;
+
+  font-size: clamp(38px, 3.6vw, 55px);
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+}
+
+.heroHeading h2 span {
+  color: #8e7cff;
+}
+
+.heroHeading > p {
+  max-width: 500px;
+
+  margin-top: 22px;
+
+  color: #b9bac8;
+
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.features {
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.featureCard {
+  width: min(100%, 450px);
+
+  padding: 15px 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  border: 1px solid rgba(169, 156, 255, 0.2);
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(14px);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(169, 156, 255, 0.45);
+
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.featureIcon {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  background: rgba(109, 93, 251, 0.16);
+}
+
+.featureIcon svg {
+  width: 25px;
+  height: 25px;
+
+  fill: none;
+
+  stroke: #a99cff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.featureCard h3 {
+  margin: 0 0 4px;
+
+  font-size: 15px;
+}
+
+.featureCard p {
+  margin: 0;
+
+  color: #a9a9b9;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.heroBottom {
+  margin-top: auto;
+
+  padding-top: 35px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.scriptText {
+  margin: 0;
+
+  color: #c3baff;
+
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.4;
+
+  transform: rotate(-4deg);
+}
+
+.heroWords {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  color: #a99cff;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+}
+
+/* =========================================================
+   RIGHT FORM
+   ========================================================= */
+
+.formSide {
+  position: relative;
+  z-index: 5;
+
+  width: calc(100% + 28px);
+  transform: translateX(-28px);
+
+  padding: 44px 65px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 32px 0 0 32px;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(169, 156, 255, 0.07),
+      transparent 30%
+    ),
+    #ffffff;
+
+  box-shadow:
+    -15px 0 35px rgba(0, 0, 0, 0.08);
+}
+
+.welcome {
+  position: absolute;
+
+  top: 28px;
+  right: 42px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #9a9bad;
+
+  font-size: 11px;
+}
+
+.welcome span {
+  display: block;
+
+  width: 32px;
+  height: 2px;
+
+  background: #6d5dfb;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 550px;
+
+  margin: auto;
+}
+
+.formHeader h2 {
+  margin: 0;
+
+  color: #1b1c28;
+
+  font-size: 38px;
+  font-weight: 760;
+
+  letter-spacing: -1.8px;
+}
+
+.formHeader p {
+  margin: 7px 0 25px;
+
+  color: #74758a;
+
+  font-size: 15px;
+}
+
+/* TABS */
+
+.tabs {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.tab {
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: 1px solid #e4e4ed;
+  border-radius: 11px;
+
+  background: white;
+
+  color: #5e6075;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.tab svg {
+  width: 18px;
+  height: 18px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tab:hover {
+  border-color: #a99cff;
+}
+
+.activeTab {
+  border-color: #6d5dfb;
+
+  background: linear-gradient(
+    135deg,
+    #6d5dfb,
+    #785fff
+  );
+
+  color: white;
+
+  box-shadow: 0 8px 20px rgba(109, 93, 251, 0.2);
+}
+
+/* SOCIAL */
+
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.socialButton {
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border: 1px solid #e4e4ed;
+  border-radius: 10px;
+
+  background: white;
+
+  color: #292a3a;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.socialButton:hover {
+  transform: translateY(-1px);
+
+  border-color: #c8c0ff;
+
+  background: #faf9ff;
+}
+
+.googleIcon {
+  font-size: 20px;
+  font-weight: 800;
+
+  color: #4285f4;
+}
+
+.facebookIcon {
+  width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #1877f2;
+  color: white;
+
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* DIVIDER */
+
+.divider {
+  margin: 17px 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+}
+
+.divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background: #e4e4ed;
+}
+
+.divider p {
+  margin: 0;
+
+  color: #8b8c9c;
+
+  font-size: 11px;
+}
+
+/* INPUTS */
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #454658;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inputWrapper {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 0 14px;
+
+  border: 1px solid #e4e4ed;
+  border-radius: 9px;
+
+  background: #fbfbfd;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: #8b7aff;
+
+  background: white;
+
+  box-shadow: 0 0 0 4px rgba(109, 93, 251, 0.08);
+}
+
+.inputWrapper > svg {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  fill: none;
+
+  stroke: #85869a;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.inputWrapper input {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #1b1c28;
+
+  font: inherit;
+  font-size: 13px;
+}
+
+.inputWrapper input::placeholder {
+  color: #a6a7b5;
+}
+
+.passwordGrid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.singlePassword {
+  display: block;
+}
+
+.eyeButton {
+  border: 0;
+
+  background: none;
+
+  color: #8d8e9e;
+
+  cursor: pointer;
+
+  padding: 4px;
+}
+
+.eyeButton svg {
+  width: 18px;
+  height: 18px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+/* ROLE */
+
+.roleSection {
+  margin-top: 2px;
+  margin-bottom: 15px;
+}
+
+.roleSection > p {
+  margin: 0 0 7px;
+
+  color: #454658;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.roleGrid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.roleCard {
+  min-height: 62px;
+
+  padding: 10px 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  border: 1px solid #e4e4ed;
+  border-radius: 10px;
+
+  background: white;
+
+  text-align: left;
+
+  color: #292a3a;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.roleCard > svg {
+  width: 19px;
+  height: 19px;
+
+  flex-shrink: 0;
+
+  fill: none;
+
+  stroke: #74758a;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.roleCard strong {
+  display: block;
+
+  font-size: 12px;
+}
+
+.roleCard small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #8a8b9d;
+
+  font-size: 10px;
+}
+
+.radio {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 1.5px solid #c6c7d1;
+  border-radius: 50%;
+}
+
+.radio span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+}
+
+.selectedRole {
+  border-color: #6d5dfb;
+
+  background: rgba(109, 93, 251, 0.035);
+
+  box-shadow: 0 0 0 3px rgba(109, 93, 251, 0.05);
+}
+
+.selectedRole > svg {
+  stroke: #6d5dfb;
+}
+
+.selectedRole .radio {
+  border-color: #6d5dfb;
+}
+
+.selectedRole .radio span {
+  background: #6d5dfb;
+}
+
+/* TERMS */
+
+.terms {
+  margin: 5px 0 16px;
+
+  display: flex;
+
+  gap: 9px;
+
+  color: #666779;
+
+  font-size: 11px;
+}
+
+.terms input {
+  accent-color: #6d5dfb;
+
+  cursor: pointer;
+}
+
+.terms a,
+.loginOptions a {
+  color: #6d5dfb;
+
+  text-decoration: none;
+}
+
+.terms a:hover,
+.loginOptions a:hover {
+  text-decoration: underline;
+}
+
+/* LOGIN OPTIONS */
+
+.loginOptions {
+  margin: 3px 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #666779;
+
+  font-size: 11px;
+}
+
+.loginOptions label {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.loginOptions input {
+  accent-color: #6d5dfb;
+}
+
+/* MESSAGE */
+
+.message {
+  margin-bottom: 12px;
+
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.errorMessage {
+  border: 1px solid #fecaca;
+
+  background: #fff1f2;
+
+  color: #b42318;
+}
+
+.successMessage {
+  border: 1px solid #bbf7d0;
+
+  background: #f0fdf4;
+
+  color: #16743c;
+}
+
+/* BUTTON */
+
+.submitButton {
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 13px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #6d5dfb,
+    #765cff
+  );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow: 0 9px 24px rgba(109, 93, 251, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.submitButton svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow: 0 13px 28px rgba(109, 93, 251, 0.28);
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.7;
+}
+
+.bottomSwitch {
+  margin: 20px 0 0;
+
+  text-align: center;
+
+  color: #74758a;
+
+  font-size: 11px;
+}
+
+.bottomSwitch button {
+  margin-left: 5px;
+
+  border: none;
+
+  background: none;
+
+  color: #6d5dfb;
+
+  font: inherit;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.bottomSwitch button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .page {
+    padding: 20px;
+  }
+
+  .authContainer {
+    grid-template-columns: 1fr;
+
+    max-width: 650px;
+  }
+
+  .hero {
+    min-height: 600px;
+  }
+
+  .formSide {
+    padding-top: 75px;
+    padding-bottom: 65px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 0;
+
+    align-items: stretch;
+
+    background: white;
+  }
+
+  .authContainer {
+    min-height: 100vh;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+  .hero {
+    min-height: 540px;
+
+    padding: 36px 26px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .heroHeading h2 {
+    font-size: 38px;
+  }
+
+  .heroHeading > p {
+    font-size: 15px;
+  }
+
+  .formSide {
+    padding: 70px 25px 45px;
+  }
+
+  .welcome {
+    right: 25px;
+  }
+
+  .formHeader h2 {
+    font-size: 31px;
+  }
+
+  .passwordGrid,
+  .roleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    gap: 7px;
+  }
+}
