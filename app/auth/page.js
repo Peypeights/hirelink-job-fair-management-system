@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./auth.module.css";
 import { createClient } from "../../lib/supabase/client";
 import Image from "next/image";
 
 export default function AuthPage() {
+  const router = useRouter();
+
   const [mode, setMode] = useState("login");
 
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -40,10 +45,41 @@ export default function AuthPage() {
   }
 
   async function handleSignUp() {
-    if (!fullName.trim()) {
-      showError("Please enter your full name.");
+    if (firstName.trim().length < 2) {
+      showError("Please enter your first name.");
       return;
     }
+
+    if (lastName.trim().length < 2) {
+      showError("Please enter your last name.");
+      return;
+    }
+
+    if (firstName.trim().length > 100) {
+      showError("First name must not exceed 100 characters.");
+      return;
+    }
+
+    if (lastName.trim().length > 100) {
+      showError("Last name must not exceed 100 characters.");
+      return;
+    }
+
+    if (
+      role === "company" &&
+      companyName.trim().length < 2
+    ) {
+      showError("Please enter your company name.");
+      return;
+    }
+
+if (
+  role === "company" &&
+  companyName.trim().length > 100
+) {
+  showError("Company name must not exceed 100 characters.");
+  return;
+}
 
     if (!email.trim()) {
       showError("Please enter your email address.");
@@ -73,11 +109,13 @@ export default function AuthPage() {
 
       options: {
         data: {
-          full_name: fullName.trim(),
-
-          // Temporary metadata.
-          // We will safely connect this to user_profiles next.
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
           role,
+
+          ...(role === "company" && {
+            company_name: companyName.trim(),
+          }),
         },
       },
     });
@@ -85,22 +123,42 @@ export default function AuthPage() {
     setLoading(false);
 
     if (error) {
+      if (
+        error.code === "user_already_exists" ||
+        error.code === "email_exists" ||
+        error.message.toLowerCase().includes("already registered")
+      ) {
+        showError(
+          "This email is already associated with an existing HireLink account. Please log in instead."
+        );
+        return;
+      }
+    
       showError(error.message);
       return;
     }
 
-    if (data.user) {
-      setMessageType("success");
-
-      if (data.session) {
-        setMessage("Account created successfully.");
-      } else {
-        setMessage(
-          "Account created. Please check your email to confirm your account."
-        );
-      }
+  // Supabase may return a fake user instead of an error
+  // when the email already belongs to a confirmed account.
+  if (data.user?.identities?.length === 0) {
+    showError(
+      "This email is already associated with an existing HireLink account. Please log in instead."
+    );
+    return;
+  }
+  
+  if (data.user) {
+    setMessageType("success");
+  
+    if (data.session) {
+      setMessage("Account created successfully.");
+    } else {
+      setMessage(
+        "Account created. Please check your email to confirm your account."
+      );
     }
   }
+}
 
   async function handleLogin() {
     if (!email.trim() || !password) {
@@ -123,7 +181,10 @@ export default function AuthPage() {
     }
 
     setMessageType("success");
-    setMessage("Login successful.");
+    setMessage("Login successful. Redirecting...");
+
+    router.replace("/dashboard");
+    router.refresh();
   }
 
   async function handleOAuth(provider) {
@@ -322,21 +383,83 @@ export default function AuthPage() {
 
             <form onSubmit={handleSubmit}>
               {mode === "signup" && (
-                <div className={styles.field}>
-                  <label htmlFor="fullName">Full Name</label>
-
-                  <div className={styles.inputWrapper}>
-                    <UserIcon />
-
-                    <input
-                      id="fullName"
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={fullName}
-                      onChange={(event) => setFullName(event.target.value)}
-                    />
+                <>
+                  <div className={styles.passwordGrid}>
+                    <div className={styles.field}>
+                      <label htmlFor="firstName">
+                        {role === "company"
+                          ? "Representative First Name"
+                          : "First Name"}
+                      </label>
+                        
+                      <div className={styles.inputWrapper}>
+                        <UserIcon />
+                        
+                        <input
+                          id="firstName"
+                          type="text"
+                          placeholder={
+                            role === "company"
+                              ? "Representative first name"
+                              : "Enter your first name"
+                          }
+                          value={firstName}
+                          onChange={(event) =>
+                            setFirstName(event.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                        
+                    <div className={styles.field}>
+                      <label htmlFor="lastName">
+                        {role === "company"
+                          ? "Representative Last Name"
+                          : "Last Name"}
+                      </label>
+                        
+                      <div className={styles.inputWrapper}>
+                        <UserIcon />
+                        
+                        <input
+                          id="lastName"
+                          type="text"
+                          placeholder={
+                            role === "company"
+                              ? "Representative last name"
+                              : "Enter your last name"
+                          }
+                          value={lastName}
+                          onChange={(event) =>
+                            setLastName(event.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                        
+                  {role === "company" && (
+                    <div className={styles.field}>
+                      <label htmlFor="companyName">
+                        Company Name
+                      </label>
+                  
+                      <div className={styles.inputWrapper}>
+                        <BuildingIcon />
+                  
+                        <input
+                          id="companyName"
+                          type="text"
+                          placeholder="Enter your company name"
+                          value={companyName}
+                          onChange={(event) =>
+                            setCompanyName(event.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               <div className={styles.field}>

@@ -4,7 +4,6 @@ import { createClient } from "../../../lib/supabase/server";
 export async function POST(request) {
   const supabase = await createClient();
 
-  // Get the real authenticated user.
   const {
     data: { user },
     error: userError,
@@ -13,7 +12,8 @@ export async function POST(request) {
   if (userError || !user) {
     return NextResponse.json(
       {
-        error: "You must be signed in to complete onboarding.",
+        error:
+          "You must be signed in to complete onboarding.",
       },
       {
         status: 401,
@@ -48,22 +48,32 @@ export async function POST(request) {
     );
   }
 
-  const fullName =
-    typeof body.fullName === "string"
-      ? body.fullName.trim()
+  const firstName =
+    typeof body.firstName === "string"
+      ? body.firstName.trim()
+      : "";
+
+  const lastName =
+    typeof body.lastName === "string"
+      ? body.lastName.trim()
+      : "";
+
+  const companyName =
+    typeof body.companyName === "string"
+      ? body.companyName.trim()
       : "";
 
   const role = body.role;
 
-  // Server-side validation.
+  // Validate first name
   if (
-    fullName.length < 2 ||
-    fullName.length > 100
+    firstName.length < 2 ||
+    firstName.length > 100
   ) {
     return NextResponse.json(
       {
         error:
-          "Full name must contain 2 to 100 characters.",
+          "First name must contain 2 to 100 characters.",
       },
       {
         status: 400,
@@ -71,6 +81,23 @@ export async function POST(request) {
     );
   }
 
+  // Validate last name
+  if (
+    lastName.length < 2 ||
+    lastName.length > 100
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Last name must contain 2 to 100 characters.",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+
+  // Public registration only allows these roles
   if (
     role !== "applicant" &&
     role !== "company"
@@ -85,7 +112,26 @@ export async function POST(request) {
     );
   }
 
-  // Do not allow onboarding twice.
+  // Company accounts must provide company name
+  if (
+    role === "company" &&
+    (
+      companyName.length < 2 ||
+      companyName.length > 100
+    )
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Company name must contain 2 to 100 characters.",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+
+  // Check whether onboarding was already completed
   const {
     data: existingProfile,
     error: existingError,
@@ -115,7 +161,8 @@ export async function POST(request) {
   if (existingProfile) {
     return NextResponse.json(
       {
-        error: "Your profile is already complete.",
+        error:
+          "Your profile is already complete.",
       },
       {
         status: 409,
@@ -123,18 +170,40 @@ export async function POST(request) {
     );
   }
 
-  /*
-    Notice what the browser CANNOT choose here:
+  // Save onboarding information in Auth metadata
+  const {
+    error: metadataError,
+  } = await supabase.auth.updateUser({
+    data: {
+      first_name: firstName,
+      last_name: lastName,
+      role,
 
-    user_id   → from logged-in Supabase user
-    email     → from logged-in Supabase user
-    phone     → null
-    is_active → true
+      company_name:
+        role === "company"
+          ? companyName
+          : null,
+    },
+  });
 
-    The browser only supplied:
-    fullName and role.
-  */
+  if (metadataError) {
+    console.error(
+      "Could not save onboarding metadata:",
+      metadataError
+    );
 
+    return NextResponse.json(
+      {
+        error:
+          "We couldn't save your onboarding information.",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+
+  // Create HireLink user profile
   const {
     data: profile,
     error: insertError,
@@ -142,16 +211,24 @@ export async function POST(request) {
     .from("user_profiles")
     .insert({
       user_id: user.id,
-      full_name: fullName,
+      first_name: firstName,
+      last_name: lastName,
       email: user.email,
       phone: null,
       role,
       is_active: true,
     })
     .select(
-      "user_id, full_name, email, role, is_active"
+      `
+        user_id,
+        first_name,
+        last_name,
+        email,
+        role,
+        is_active
+      `
     )
-    .single();
+  .single();
 
   if (insertError) {
     console.error(
