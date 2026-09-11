@@ -505,6 +505,12 @@
   font-size: 10px;
 }
 
+.nameGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
 /* ROLES */
 
 .roleSection {
@@ -914,5 +920,9 @@
 
   .roleCard {
     min-height: 135px;
+  }
+
+  .nameGrid {
+    grid-template-columns: 1fr;
   }
 }

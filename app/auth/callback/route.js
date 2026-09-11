@@ -83,6 +83,6 @@ export async function GET(request) {
 
   // Returning user
   return NextResponse.redirect(
-    `${origin}/`
+   `${origin}/dashboard`
   );
 }

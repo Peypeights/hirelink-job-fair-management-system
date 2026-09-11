@@ -8,7 +8,9 @@ import { createClient } from "../../lib/supabase/client";
 export default function OnboardingPage() {
   const router = useRouter();
 
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [role, setRole] = useState("");
   const [provider, setProvider] = useState("");
 
@@ -49,7 +51,7 @@ export default function OnboardingPage() {
       }
 
       if (existingProfile) {
-        router.replace("/");
+        router.replace("/dashboard");
         return;
       }
 
@@ -60,12 +62,51 @@ export default function OnboardingPage() {
         Different providers can use slightly
         different metadata names, so we check both.
       */
-      const socialName =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
+      const metadata = user.user_metadata || {};
+          
+      let socialFirstName =
+        metadata.given_name ||
+        metadata.first_name ||
         "";
-
-      setFullName(socialName);
+          
+      let socialLastName =
+        metadata.family_name ||
+        metadata.last_name ||
+        "";
+          
+      const socialFullName =
+        metadata.full_name ||
+        metadata.name ||
+        "";
+          
+      if (
+        (!socialFirstName || !socialLastName) &&
+        socialFullName
+      ) {
+        const nameParts = socialFullName
+          .trim()
+          .split(/\s+/);
+      
+        if (nameParts.length === 1) {
+          socialFirstName =
+            socialFirstName || nameParts[0];
+        } else {
+          socialFirstName =
+            socialFirstName ||
+            nameParts.slice(0, -1).join(" ");
+        
+          socialLastName =
+            socialLastName ||
+            nameParts[nameParts.length - 1];
+        }
+      }
+      
+      setFirstName(socialFirstName);
+      setLastName(socialLastName);
+      
+      setCompanyName(
+        metadata.company_name || ""
+      );
 
       setProvider(
         user.app_metadata?.provider || "social"
@@ -82,20 +123,45 @@ export default function OnboardingPage() {
 
     setError("");
 
-    const cleanedName = fullName.trim();
-
-    if (cleanedName.length < 2) {
-      setError("Please enter your full name.");
+    const cleanedFirstName = firstName.trim();
+    const cleanedLastName = lastName.trim();
+    const cleanedCompanyName = companyName.trim();
+      
+    if (
+      cleanedFirstName.length < 2 ||
+      cleanedFirstName.length > 100
+    ) {
+      setError(
+        "First name must contain 2 to 100 characters."
+      );
       return;
     }
-
-    if (cleanedName.length > 100) {
-      setError("Full name must not exceed 100 characters.");
+    
+    if (
+      cleanedLastName.length < 2 ||
+      cleanedLastName.length > 100
+    ) {
+      setError(
+        "Last name must contain 2 to 100 characters."
+      );
       return;
     }
 
     if (!role) {
       setError("Please choose your HireLink role.");
+      return;
+    }
+    
+    if (
+      role === "company" &&
+      (
+        cleanedCompanyName.length < 2 ||
+        cleanedCompanyName.length > 100
+      )
+    ) {
+      setError(
+        "Company name must contain 2 to 100 characters."
+      );
       return;
     }
 
@@ -110,7 +176,12 @@ export default function OnboardingPage() {
         },
 
         body: JSON.stringify({
-          fullName: cleanedName,
+          firstName: cleanedFirstName,
+          lastName: cleanedLastName,
+          companyName:
+            role === "company"
+              ? cleanedCompanyName
+              : null,
           role,
         }),
       });
@@ -119,7 +190,7 @@ export default function OnboardingPage() {
 
       if (!response.ok) {
         if (response.status === 409) {
-          router.replace("/");
+          router.replace("/dashboard");
           return;
         }
 
@@ -132,13 +203,7 @@ export default function OnboardingPage() {
         return;
       }
 
-      /*
-        Temporary destination.
-
-        Once we build the Applicant and Company
-        dashboards, we'll redirect based on role.
-      */
-      router.replace("/");
+      router.replace("/dashboard");
       router.refresh();
     } catch {
       setError(
@@ -229,7 +294,7 @@ export default function OnboardingPage() {
                 <div>
                   <strong>Complete your profile</strong>
                   <p>
-                    Confirm your name and choose
+                    Confirm your details and choose
                     your role.
                   </p>
                 </div>
@@ -266,35 +331,56 @@ export default function OnboardingPage() {
 
               <p>
                 We&apos;ve filled in what we could
-                from {getProviderName()}. You can
-                change your name before continuing.
+                from {getProviderName()}. Review your
+                details before continuing.
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className={styles.field}>
-                <label htmlFor="fullName">
-                  Full Name
-                </label>
-
-                <div className={styles.inputWrapper}>
-                  <UserIcon />
-
-                  <input
-                    id="fullName"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={fullName}
-                    onChange={(event) =>
-                      setFullName(event.target.value)
-                    }
-                  />
+              <div className={styles.nameGrid}>
+                <div className={styles.field}>
+                  <label htmlFor="firstName">
+                    {role === "company"
+                      ? "Representative First Name"
+                      : "First Name"}
+                  </label>
+                    
+                  <div className={styles.inputWrapper}>
+                    <UserIcon />
+                    
+                    <input
+                      id="firstName"
+                      type="text"
+                      placeholder="Enter your first name"
+                      value={firstName}
+                      onChange={(event) =>
+                        setFirstName(event.target.value)
+                      }
+                    />
+                  </div>
                 </div>
-
-                <small>
-                  This is the name other HireLink
-                  users will see.
-                </small>
+                    
+                <div className={styles.field}>
+                  <label htmlFor="lastName">
+                    {role === "company"
+                      ? "Representative Last Name"
+                      : "Last Name"}
+                  </label>
+                    
+                  <div className={styles.inputWrapper}>
+                    <UserIcon />
+                    
+                    <input
+                      id="lastName"
+                      type="text"
+                      placeholder="Enter your last name"
+                      value={lastName}
+                      onChange={(event) =>
+                        setLastName(event.target.value)
+                      }
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className={styles.roleSection}>
@@ -380,15 +466,41 @@ export default function OnboardingPage() {
               </div>
 
               {role === "company" && (
-                <div className={styles.companyNote}>
-                  <InfoIcon />
+                <>
+                  <div className={styles.field}>
+                    <label htmlFor="companyName">
+                      Company Name
+                    </label>
 
-                  <p>
-                    You&apos;ll set up your company
-                    profile after completing your
-                    personal account.
-                  </p>
-                </div>
+                    <div className={styles.inputWrapper}>
+                      <BuildingIcon />
+
+                      <input
+                        id="companyName"
+                        type="text"
+                        placeholder="Enter your company name"
+                        value={companyName}
+                        onChange={(event) =>
+                          setCompanyName(event.target.value)
+                        }
+                      />
+                    </div>
+                      
+                    <small>
+                      This will be used when you set up
+                      your company profile.
+                    </small>
+                  </div>
+                      
+                  <div className={styles.companyNote}>
+                    <InfoIcon />
+                      
+                    <p>
+                      You&apos;ll provide additional company
+                      details after completing your account setup.
+                    </p>
+                  </div>
+                </>
               )}
 
               {error && (
