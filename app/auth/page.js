@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./auth.module.css";
 import { createClient } from "../../lib/supabase/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AuthPage() {
   const router = useRouter();
@@ -627,8 +628,7 @@ if (
                     <input type="checkbox" />
                     Remember me
                   </label>
-
-                  <a href="#">Forgot password?</a>
+                  <a href="/auth/forgot-password">Forgot password?</a>
                 </div>
               )}
 
