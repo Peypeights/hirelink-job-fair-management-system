@@ -149,8 +149,14 @@ if (
   
   if (data.user) {
     setMessageType("success");
-  
+
     if (data.session) {
+      if (role === "company") {
+        router.replace("/onboarding");
+        router.refresh();
+        return;
+      }
+
       setMessage("Account created successfully.");
     } else {
       setMessage(
