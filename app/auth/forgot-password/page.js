@@ -25,17 +25,35 @@ export default function ForgotPasswordPage(){
         }
         
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1200));
+            const response = await fetch('/api/onboarding/auth/forgot-password', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email.trim() }),
+            });
+
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")){
+                throw new Error("Our servers are currently unreachable. Please try again later.");
+            }
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Something went wrong.');
+            }
 
             setIsSubmitted(true);
-            setMessageType("success");
-            setMessage("Recovery link sent! Please check your email inbox.");
-        } catch (err) {
-            setMessageType("error");
-            setMessage("An unexpected error occured. Please try again.")
-        } finally {
+            setMessageType('success');
+            setMessage('Recovery link sent! Please check your email inbox.');
+
+            } catch (err) {
+            setMessageType('error');
+            setMessage(err.message || 'An unexpected error occurred. Please try again.');
+            } finally {
             setLoading(false);
-        }
+            }
     };
 
     return (
