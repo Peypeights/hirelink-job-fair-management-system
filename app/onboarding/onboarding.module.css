@@ -491,7 +491,34 @@
   font-size: 13px;
 }
 
+.inputWrapper textarea {
+  width: 100%;
+  min-height: 105px;
+  padding: 12px 0;
+
+  border: none;
+  outline: none;
+  resize: vertical;
+
+  background: transparent;
+  color: #1b1c28;
+
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.textareaWrapper {
+  height: auto;
+  min-height: 130px;
+  align-items: flex-start;
+}
+
 .inputWrapper input::placeholder {
+  color: #a4a5b3;
+}
+
+.inputWrapper textarea::placeholder {
   color: #a4a5b3;
 }
 
@@ -503,6 +530,14 @@
   color: #999aaa;
 
   font-size: 10px;
+}
+
+.fieldError {
+  display: block;
+  margin-top: 7px;
+  color: #b42318;
+  font-size: 10px;
+  line-height: 1.4;
 }
 
 .nameGrid {
@@ -573,6 +608,15 @@
   transform: translateY(-2px);
 
   border-color: #c6beff;
+}
+
+.roleCard:disabled {
+  cursor: not-allowed;
+  opacity: 0.82;
+}
+
+.roleCard:disabled:hover {
+  transform: none;
 }
 
 .roleTop {
