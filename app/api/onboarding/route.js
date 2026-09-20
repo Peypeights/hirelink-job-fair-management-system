@@ -1,5 +1,22 @@
 import { NextResponse } from "next/server";
 import { createClient } from "../../../lib/supabase/server";
+import {
+  normalizeOnboardingValue,
+  normalizeOptionalWebsite,
+  validateOnboardingFields,
+} from "../../../lib/onboarding/validation";
+
+const PUBLIC_ROLES = new Set(["applicant", "company"]);
+
+function errorResponse(error, status, fieldErrors) {
+  return NextResponse.json(
+    {
+      error,
+      ...(fieldErrors ? { fieldErrors } : {}),
+    },
+    { status }
+  );
+}
 
 export async function POST(request) {
   const supabase = await createClient();
@@ -10,26 +27,16 @@ export async function POST(request) {
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    return NextResponse.json(
-      {
-        error:
-          "You must be signed in to complete onboarding.",
-      },
-      {
-        status: 401,
-      }
+    return errorResponse(
+      "You must be signed in to complete onboarding.",
+      401
     );
   }
 
   if (!user.email) {
-    return NextResponse.json(
-      {
-        error:
-          "Your social account did not provide an email address.",
-      },
-      {
-        status: 400,
-      }
+    return errorResponse(
+      "Your account must have an email address to complete onboarding.",
+      400
     );
   }
 
@@ -38,172 +45,223 @@ export async function POST(request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      {
-        error: "Invalid request.",
-      },
-      {
-        status: 400,
-      }
-    );
+    return errorResponse("Invalid request.", 400);
   }
 
-  const firstName =
-    typeof body.firstName === "string"
-      ? body.firstName.trim()
-      : "";
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return errorResponse("Invalid request.", 400);
+  }
 
-  const lastName =
-    typeof body.lastName === "string"
-      ? body.lastName.trim()
-      : "";
+  const requestedRole = body.role;
 
-  const companyName =
-    typeof body.companyName === "string"
-      ? body.companyName.trim()
-      : "";
+  if (!PUBLIC_ROLES.has(requestedRole)) {
+    return errorResponse("Invalid account type.", 400);
+  }
 
-  const role = body.role;
+  const metadataRole =
+    typeof user.user_metadata?.role === "string"
+      ? user.user_metadata.role
+      : null;
 
-  // Validate first name
   if (
-    firstName.length < 2 ||
-    firstName.length > 100
+    metadataRole &&
+    !PUBLIC_ROLES.has(metadataRole)
   ) {
-    return NextResponse.json(
-      {
-        error:
-          "First name must contain 2 to 100 characters.",
-      },
-      {
-        status: 400,
-      }
-    );
+    return errorResponse("Invalid account type.", 400);
   }
 
-  // Validate last name
-  if (
-    lastName.length < 2 ||
-    lastName.length > 100
-  ) {
-    return NextResponse.json(
-      {
-        error:
-          "Last name must contain 2 to 100 characters.",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-
-  // Public registration only allows these roles
-  if (
-    role !== "applicant" &&
-    role !== "company"
-  ) {
-    return NextResponse.json(
-      {
-        error: "Invalid account type.",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-
-  // Company accounts must provide company name
-  if (
-    role === "company" &&
-    (
-      companyName.length < 2 ||
-      companyName.length > 100
-    )
-  ) {
-    return NextResponse.json(
-      {
-        error:
-          "Company name must contain 2 to 100 characters.",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-
-  // Check whether onboarding was already completed
   const {
     data: existingProfile,
-    error: existingError,
+    error: existingProfileError,
   } = await supabase
     .from("user_profiles")
-    .select("user_id")
+    .select("user_id, role, is_active")
     .eq("user_id", user.id)
     .maybeSingle();
 
-  if (existingError) {
+  if (existingProfileError) {
     console.error(
       "Could not check existing profile:",
-      existingError
+      existingProfileError.code || "unknown"
     );
 
-    return NextResponse.json(
-      {
-        error:
-          "We couldn't check your existing profile.",
-      },
-      {
-        status: 500,
-      }
+    return errorResponse(
+      "We couldn't check your existing profile.",
+      500
     );
   }
+
+  let role = requestedRole;
 
   if (existingProfile) {
-    return NextResponse.json(
-      {
-        error:
-          "Your profile is already complete.",
-      },
-      {
-        status: 409,
-      }
+    if (!existingProfile.is_active) {
+      return errorResponse("This account is inactive.", 403);
+    }
+
+    if (!PUBLIC_ROLES.has(existingProfile.role)) {
+      return errorResponse(
+        "This account cannot complete public onboarding.",
+        403
+      );
+    }
+
+    if (existingProfile.role !== requestedRole) {
+      return errorResponse(
+        "Your HireLink role cannot be changed during onboarding.",
+        409
+      );
+    }
+
+    role = existingProfile.role;
+
+    if (role === "applicant") {
+      return errorResponse(
+        "Your profile is already complete.",
+        409
+      );
+    }
+
+    const {
+      data: existingCompanyProfile,
+      error: existingCompanyProfileError,
+    } = await supabase
+      .from("company_profiles")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (existingCompanyProfileError) {
+      console.error(
+        "Could not check existing company profile:",
+        existingCompanyProfileError.code || "unknown"
+      );
+
+      return errorResponse(
+        "We couldn't check your existing company profile.",
+        500
+      );
+    }
+
+    if (existingCompanyProfile) {
+      return errorResponse(
+        "Your company profile is already complete.",
+        409
+      );
+    }
+  } else if (metadataRole === "company") {
+    // A company email signup records the role in Auth metadata. Keep that
+    // role locked even if a caller tampers with the request body.
+    if (requestedRole !== "company") {
+      return errorResponse(
+        "Company registration must be completed as a company account.",
+        400
+      );
+    }
+
+    role = "company";
+  }
+
+  if (
+    role === "company" &&
+    body.website !== undefined &&
+    body.website !== null &&
+    typeof body.website !== "string"
+  ) {
+    return errorResponse(
+      "Website must be a valid URL.",
+      400,
+      { website: "Website must be a valid URL." }
     );
   }
 
-  // Save onboarding information in Auth metadata
-  const {
-    error: metadataError,
-  } = await supabase.auth.updateUser({
-    data: {
-      first_name: firstName,
-      last_name: lastName,
-      role,
+  const normalizedValues = {
+    firstName: normalizeOnboardingValue(body.firstName),
+    lastName: normalizeOnboardingValue(body.lastName),
+    companyName: normalizeOnboardingValue(body.companyName),
+    description: normalizeOnboardingValue(body.description),
+    industry: normalizeOnboardingValue(body.industry),
+    address: normalizeOnboardingValue(body.address),
+    contactEmail: normalizeOnboardingValue(body.contactEmail),
+    contactPhone: normalizeOnboardingValue(body.contactPhone),
+    website: normalizeOptionalWebsite(body.website),
+  };
 
-      company_name:
-        role === "company"
-          ? companyName
-          : null,
+  const fieldErrors = validateOnboardingFields({
+    ...normalizedValues,
+    role,
+  });
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return errorResponse(
+      Object.values(fieldErrors)[0],
+      400,
+      fieldErrors
+    );
+  }
+
+  if (role === "company") {
+    const { data, error: onboardingError } = await supabase.rpc(
+      "complete_company_onboarding",
+      {
+        p_first_name: normalizedValues.firstName,
+        p_last_name: normalizedValues.lastName,
+        p_company_name: normalizedValues.companyName,
+        p_description: normalizedValues.description,
+        p_industry: normalizedValues.industry,
+        p_address: normalizedValues.address,
+        p_contact_email: normalizedValues.contactEmail,
+        p_contact_phone: normalizedValues.contactPhone,
+        p_website: normalizedValues.website,
+      }
+    );
+
+    if (onboardingError) {
+      console.error(
+        "Company onboarding transaction failed:",
+        onboardingError.code || "unknown"
+      );
+
+      if (onboardingError.code === "23505") {
+        return errorResponse(
+          "Your company profile is already complete.",
+          409
+        );
+      }
+
+      return errorResponse(
+        "We couldn't complete your company profile.",
+        500
+      );
+    }
+
+    return NextResponse.json(
+      { data },
+      { status: 201 }
+    );
+  }
+
+  // Preserve the existing applicant onboarding path.
+  const { error: metadataError } = await supabase.auth.updateUser({
+    data: {
+      first_name: normalizedValues.firstName,
+      last_name: normalizedValues.lastName,
+      role: "applicant",
+      company_name: null,
     },
   });
 
   if (metadataError) {
     console.error(
-      "Could not save onboarding metadata:",
-      metadataError
+      "Could not save applicant onboarding metadata:",
+      metadataError.code || "unknown"
     );
 
-    return NextResponse.json(
-      {
-        error:
-          "We couldn't save your onboarding information.",
-      },
-      {
-        status: 500,
-      }
+    return errorResponse(
+      "We couldn't save your onboarding information.",
+      500
     );
   }
 
-  // Create HireLink user profile
   const {
     data: profile,
     error: insertError,
@@ -211,11 +269,11 @@ export async function POST(request) {
     .from("user_profiles")
     .insert({
       user_id: user.id,
-      first_name: firstName,
-      last_name: lastName,
+      first_name: normalizedValues.firstName,
+      last_name: normalizedValues.lastName,
       email: user.email,
       phone: null,
-      role,
+      role: "applicant",
       is_active: true,
     })
     .select(
@@ -228,31 +286,29 @@ export async function POST(request) {
         is_active
       `
     )
-  .single();
+    .single();
 
   if (insertError) {
     console.error(
-      "Onboarding profile creation failed:",
-      insertError
+      "Applicant onboarding profile creation failed:",
+      insertError.code || "unknown"
     );
 
-    return NextResponse.json(
-      {
-        error:
-          "We couldn't create your HireLink profile.",
-      },
-      {
-        status: 500,
-      }
+    if (insertError.code === "23505") {
+      return errorResponse(
+        "Your profile is already complete.",
+        409
+      );
+    }
+
+    return errorResponse(
+      "We couldn't create your HireLink profile.",
+      500
     );
   }
 
   return NextResponse.json(
-    {
-      data: profile,
-    },
-    {
-      status: 201,
-    }
+    { data: profile },
+    { status: 201 }
   );
 }
