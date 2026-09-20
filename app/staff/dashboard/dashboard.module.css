@@ -1,0 +1,239 @@
+.dashboardContainer {
+  min-height: 100vh;
+  background-color: #F7F7FB;
+  color: #1B1C28;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+}
+
+
+.navBar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E4E4ED;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #292A3A, #6D5DFB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portalBadge {
+  background-color: rgba(109, 93, 251, 0.1);
+  color: #6D5DFB;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(109, 93, 251, 0.2);
+  margin-left: 0.75rem;
+  text-transform: uppercase;
+}
+
+
+.welcomeHero {
+  position: relative;
+  background: linear-gradient(135deg, #191A25, #292A3A);
+  color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #292A3A;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.welcomeHero h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.welcomeHero p {
+  color: #74758A;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+  max-width: 42rem;
+}
+
+
+.tabsContainer {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.375rem;
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 12px;
+  max-width: 28rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabButton {
+  flex: 1;
+  text-align: center;
+  padding: 0.625rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #74758A;
+  transition: all 0.2s ease;
+}
+
+.tabButtonActive {
+  background-color: #191A25;
+  color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(25, 26, 37, 0.15);
+}
+
+
+.card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.actionButtonPrimary {
+  background-color: #191A25;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.actionButtonPrimary:hover {
+  background-color: #292A3A;
+}
+
+.actionButtonSchedule {
+  background-color: #6D5DFB;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(109, 93, 251, 0.2);
+}
+
+.actionButtonSchedule:hover {
+  background-color: rgba(109, 93, 251, 0.9);
+}
+
+
+.tableWrapper {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.dashboardTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.dashboardTable th {
+  background-color: #F7F7FB;
+  border-bottom: 1px solid #E4E4ED;
+  padding: 1rem 1.5rem;
+  color: #74758A;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dashboardTable td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #E4E4ED;
+  color: #1B1C28;
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(25, 26, 37, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.modalContent {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E4E4ED;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 28rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #74758A;
+  text-transform: uppercase;
+  margin-bottom: 0.375rem;
+}
+
+.formInput {
+  width: 100%;
+  background-color: #F7F7FB;
+  border: 1px solid #E4E4ED;
+  border-radius: 10px;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.75rem;
+  color: #1B1C28;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #6D5DFB;
+}
