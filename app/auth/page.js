@@ -1,15 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./auth.module.css";
 import { createClient } from "../../lib/supabase/client";
 import Image from "next/image";
 
 export default function AuthPage() {
+  return <Suspense fallback={<p role="status">Loading sign in…</p>}><AuthEntry /></Suspense>;
+}
+
+function AuthEntry() {
+  const searchParams = useSearchParams();
+  const initialMode = searchParams.get("mode") === "signup" ? "signup" : "login";
+  return <AuthForm key={initialMode} initialMode={initialMode} />;
+}
+
+function AuthForm({ initialMode }) {
   const router = useRouter();
 
-  const [mode, setMode] = useState("login");
+  const [mode, setMode] = useState(initialMode);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
