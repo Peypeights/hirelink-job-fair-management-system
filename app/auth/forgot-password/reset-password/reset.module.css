@@ -1,0 +1,137 @@
+.container {
+  min-height: 100vh;
+  background-color: #F7F7FB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 26rem;
+  box-shadow: 0 10px 25px -5px rgba(25, 26, 37, 0.05);
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  color: #1B1C28;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  color: #74758A;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.formStack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #74758A;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.formInput {
+  background-color: #F7F7FB;
+  border: 1px solid #E4E4ED;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #1B1C28;
+  transition: border-color 0.2s;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #6D5DFB;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #191A25, #292A3A);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  opacity: 0.95;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.successWrapper {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.successIcon {
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(109, 93, 251, 0.1);
+  color: #6D5DFB;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 1.25rem auto;
+}
+
+.successTitle {
+  color: #1B1C28;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.successText {
+  color: #74758A;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.loginLink {
+  color: #6D5DFB;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}

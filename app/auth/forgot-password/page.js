@@ -85,6 +85,7 @@ export default function ForgotPasswordPage(){
                 />
                 </div>
 
+
                 {message && (
                 <div style={{ fontSize: "12px", padding: "12px", borderRadius: "8px", border: "1px solid", backgroundColor: messageType === "error" ? "#FEF2F2" : "#F0FDF4", borderColor: messageType === "error" ? "#FEE2E2" : "#DCFCE7", color: messageType === "error" ? "#EF4444" : "#15803D" }}>
                     {message}
@@ -96,19 +97,28 @@ export default function ForgotPasswordPage(){
                 </button>
             </form>
             ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px", alignItems: "center", textAlign: "center", padding: "12px 0" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(109, 93, 251, 0.1)", color: "#6D5DFB", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "bold" }}>
-                    ✓
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px", alignItems: "center", textAlign: "center", padding: "12px 0" }}>
+                    <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(109, 93, 251, 0.1)", color: "#6D5DFB", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "bold" }}>
+                        ✓
+                    </div>
+                    <p style={{ fontSize: "14px", color: "#74758A", lineHeight: "1.5" }}>{message}</p>
+                    
+                
+                    <Link 
+                        href="/auth/forgot-password/reset-password" 
+                        style={{ background: "#6D5DFB", color: "white", padding: "10px 16px", borderRadius: "10px", textDecoration: "none", fontSize: "13px", fontWeight: "600", width: "100%", boxSizing: "border-box", marginTop: "8px", boxShadow: "0 4px 6px rgba(109, 93, 251, 0.2)" }}
+                    >
+                        Go to Reset Password Screen
+                    </Link>
+
+                    <button 
+                        onClick={() => { setIsSubmitted(false); setEmail(""); setMessage(""); }}
+                        style={{ background: "none", border: "none", color: "#74758A", fontSize: "12px", fontWeight: "600", cursor: "pointer", marginTop: "4px" }}
+                    >
+                        ← Send another link
+                    </button>
                 </div>
-                <p style={{ fontSize: "14px", color: "#74758A", lineHeight: "1.5" }}>{message}</p>
-                <button 
-                    onClick={() => { setIsSubmitted(false); setEmail(""); setMessage(""); }}
-                    style={{ background: "none", border: "none", color: "#6D5DFB", fontSize: "12px", fontWeight: "600", cursor: "pointer", marginTop: "8px" }}
-                >
-                    ← Back to entry
-                </button>
-            </div>
-        )}
+            )}
 
             <div style={{ marginTop: "24px", borderTop: "1px solid #E4E4ED", paddingTop: "16px", textAlign: "center" }}>
             <Link href="/auth" style={{ fontSize: "13px", fontWeight: "500", color: "#74758A", textDecoration: "none" }}>
