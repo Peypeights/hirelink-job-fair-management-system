@@ -1,0 +1,207 @@
+.dashboardContainer {
+  min-height: 100vh;
+  background-color: #F7F7FB;
+  color: #1B1C28;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+}
+
+.navBar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E4E4ED;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #292A3A, #6D5DFB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portalBadge {
+  background-color: rgba(109, 93, 251, 0.1);
+  color: #6D5DFB;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(109, 93, 251, 0.2);
+  margin-left: 0.75rem;
+}
+
+.welcomeHero {
+  background: linear-gradient(135deg, #191A25, #292A3A);
+  color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.welcomeHero h1 {
+  margin: 0;
+  font-size: 1.875rem;
+}
+
+.welcomeHero p {
+  color: #D7D7E2;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.statCard {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.statLabel {
+  color: #74758A;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statValue {
+  margin-top: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4ED;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.jobItem {
+  border-top: 1px solid #E4E4ED;
+  padding: 1rem 0;
+}
+
+.jobItem:first-child {
+  border-top: none;
+}
+
+.jobTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.jobDetails {
+  color: #74758A;
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+}
+
+.statusBadge {
+  display: inline-block;
+  background-color: rgba(109, 93, 251, 0.1);
+  color: #6D5DFB;
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.profileItem {
+  margin-bottom: 1rem;
+}
+
+.profileLabel {
+  color: #74758A;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.profileValue {
+  font-size: 0.875rem;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  height: 180px;
+  padding-top: 1rem;
+}
+
+.chartBar {
+  flex: 1;
+  background: linear-gradient(180deg, #6D5DFB, #A99CFF);
+  border-radius: 8px 8px 0 0;
+  min-height: 20px;
+}
+
+.chartLabel {
+  text-align: center;
+  color: #74758A;
+  font-size: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 1rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navBar {
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-direction: column;
+  }
+}
