@@ -42,6 +42,7 @@ export default function AuthPage() {
     } else {
       await handleLogin();
     }
+
   }
 
   async function handleSignUp() {

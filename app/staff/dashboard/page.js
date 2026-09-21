@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./dashboard.module.css"; 
 
 const INITIAL_COMPANIES = [
@@ -42,9 +42,28 @@ const ALL_APPLICATIONS = [
 export default function StaffDashboard() {
   const [activeTab, setActiveTab] = useState("companies");
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedUser = localStorage.getItem("user");
+      return savedUser ? JSON.parse(savedUser) : null;
+    }
+    return null;
+  });
+
+  const isPreviewMode = !currentUser;
+
+  const companies = isPreviewMode ? INITIAL_COMPANIES : (currentUser.companies || []);
+  const jobs = isPreviewMode ? INITIAL_JOBS : (currentUser.jobs || []);
+  const applications = isPreviewMode ? ALL_APPLICATIONS : (currentUser.applications || []);
 
   return (
     <div className={styles.dashboardContainer}>
+      
+      {isPreviewMode && (
+        <div style={{ background: "#FFEAA7", color: "#D63031", padding: "8px", textAlign: "center", fontSize: "0.8rem", fontWeight: "bold" }}>
+          ⚠️ Viewing Dashboard Layout in Preview Mode (Placeholder Data)
+        </div>
+      )}
       
       <nav className={styles.navBar}>
         <div>
@@ -52,7 +71,7 @@ export default function StaffDashboard() {
           <span className={styles.portalBadge}>Staff Portal</span>
         </div>
         <div style={{ fontSize: "0.75rem", color: "#74758A", fontWeight: "600" }}>
-          Alex Mercado (Coordinator)
+          {isPreviewMode ? "Alex Mercado (Coordinator)" : `${currentUser.name} (${currentUser.role})`}
         </div>
       </nav>
 
@@ -61,48 +80,47 @@ export default function StaffDashboard() {
         <p>Verify pending company credentials, audit newly created vacancy parameters, and manage target timeline windows for fair recruitment events.</p>
       </div>
 
-
       <div className={styles.tabsContainer}>
         <button 
           onClick={() => setActiveTab("companies")}
           className={`${styles.tabButton} ${activeTab === "companies" ? styles.tabButtonActive : ""}`}
         >
-          Companies ({INITIAL_COMPANIES.length})
+          Companies ({companies.length})
         </button>
         <button 
           onClick={() => setActiveTab("jobs")}
           className={`${styles.tabButton} ${activeTab === "jobs" ? styles.tabButtonActive : ""}`}
         >
-          Jobs ({INITIAL_JOBS.length})
+          Jobs ({jobs.length})
         </button>
         <button 
           onClick={() => setActiveTab("applications")}
           className={`${styles.tabButton} ${activeTab === "applications" ? styles.tabButtonActive : ""}`}
         >
-          Applications ({ALL_APPLICATIONS.length})
+          Applications ({applications.length})
         </button>
       </div>
 
       <div>
-        {activeTab === "companies" && (
+        {activeTab === "companies" && companies.length > 0 && (
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <div>
-                <h3 style={{ margin: 0, fontSize: "1.15rem", fontWeight: "700" }}>{INITIAL_COMPANIES[0].company_name}</h3>
-                <p style={{ color: "#74758A", fontSize: "0.85rem", marginTop: "0.5rem" }}>{INITIAL_COMPANIES[0].company_description}</p>
+                <h3 style={{ margin: 0, fontSize: "1.15rem", fontWeight: "700" }}>{companies[0].company_name}</h3>
+                <p style={{ color: "#74758A", fontSize: "0.85rem", marginTop: "0.5rem" }}>{companies[0].company_description}</p>
               </div>
               <button className={styles.actionButtonPrimary}>Approve</button>
             </div>
           </div>
         )}
 
-        {activeTab === "jobs" && (
+        {activeTab === "jobs" && jobs.length > 0 && (
           <div className={styles.card}>
             <div className={styles.cardHeader}>
               <div>
-                <span style={{ fontSize: "0.65rem", color: "#6D5DFB", fontWeight: "700", textTransform: "uppercase" }}>{INITIAL_JOBS[0].company_name}</span>
-                <h3 style={{ margin: "0.25rem 0 0 0", fontSize: "1.25rem", fontWeight: "700" }}>{INITIAL_JOBS[0].job_title}</h3>
-                <p style={{ color: "#74758A", fontSize: "0.85rem" }}>{INITIAL_JOBS[0].job_description}</p>
+                <span style={{ fontSize: "0.65rem", color: "#6D5DFB", fontWeight: "700", textTransform: "uppercase" }}>{jobs[0].company_name}</span>
+                <h3 style={{ margin: "0.25rem 0 0 0", fontSize: "1.25rem", fontWeight: "700" }}>{jobs[0].job_title}</h3>
+                <p style={{ color: "#74758A", fontSize: "0.85rem" }}>{jobs[0].job_description}</p>
               </div>
               <button className={styles.actionButtonPrimary}>Publish</button>
             </div>
@@ -116,11 +134,11 @@ export default function StaffDashboard() {
                 <tr>
                   <th>Applicant Name</th>
                   <th>Target Role</th>
-                  <th style={{ textRight: "right" }}>Action</th>
+                  <th style={{ textAlign: "right" }}>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {ALL_APPLICATIONS.map((app) => (
+                {applications.map((app) => (
                   <tr key={app.application_id}>
                     <td style={{ fontWeight: "600" }}>{app.applicant_name}</td>
                     <td>{app.job_title}</td>
@@ -165,7 +183,7 @@ export default function StaffDashboard() {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "0.5rem", pt: "0.5rem" }}>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
               <button onClick={() => setSelectedApplication(null)} className={styles.actionButtonPrimary} style={{ flex: 1 }}>Save Schedule Mockup</button>
               <button onClick={() => setSelectedApplication(null)} style={{ background: "#F7F7FB", border: "1px solid #E4E4ED", borderRadius: "10px", padding: "0.5rem 1rem", fontSize: "0.75rem", cursor: "pointer" }}>Cancel</button>
             </div>
