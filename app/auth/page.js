@@ -52,6 +52,7 @@ function AuthForm({ initialMode }) {
     } else {
       await handleLogin();
     }
+
   }
 
   async function handleSignUp() {
