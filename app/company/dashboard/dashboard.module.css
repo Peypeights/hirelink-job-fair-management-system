@@ -1,14 +1,17 @@
 .dashboardContainer {
   min-height: 100vh;
-  background-color: #F7F7FB;
-  color: #1B1C28;
-  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #f7f7fb;
+  color: #1b1c28;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   padding: 2rem;
 }
 
 .navBar {
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e4e4ed;
   border-radius: 12px;
   padding: 1rem 1.5rem;
   display: flex;
@@ -21,7 +24,7 @@
 .logoText {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #292A3A, #6D5DFB);
+  background: linear-gradient(135deg, #292a3a, #6d5dfb);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -29,7 +32,7 @@
 
 .portalBadge {
   background-color: rgba(109, 93, 251, 0.1);
-  color: #6D5DFB;
+  color: #6d5dfb;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.25rem 0.75rem;
@@ -39,8 +42,8 @@
 }
 
 .welcomeHero {
-  background: linear-gradient(135deg, #191A25, #292A3A);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #191a25, #292a3a);
+  color: #ffffff;
   padding: 2rem;
   border-radius: 16px;
   margin-bottom: 1.5rem;
@@ -52,7 +55,7 @@
 }
 
 .welcomeHero p {
-  color: #D7D7E2;
+  color: #d7d7e2;
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
@@ -65,14 +68,14 @@
 }
 
 .statCard {
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border: 1px solid #e4e4ed;
   border-radius: 16px;
   padding: 1.25rem;
 }
 
 .statLabel {
-  color: #74758A;
+  color: #74758a;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -85,8 +88,8 @@
 }
 
 .card {
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border: 1px solid #e4e4ed;
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -106,7 +109,7 @@
 }
 
 .jobItem {
-  border-top: 1px solid #E4E4ED;
+  border-top: 1px solid #e4e4ed;
   padding: 1rem 0;
 }
 
@@ -121,7 +124,7 @@
 }
 
 .jobDetails {
-  color: #74758A;
+  color: #74758a;
   font-size: 0.8rem;
   margin-top: 0.35rem;
 }
@@ -129,7 +132,7 @@
 .statusBadge {
   display: inline-block;
   background-color: rgba(109, 93, 251, 0.1);
-  color: #6D5DFB;
+  color: #6d5dfb;
   padding: 0.3rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.7rem;
@@ -147,7 +150,7 @@
 }
 
 .profileLabel {
-  color: #74758A;
+  color: #74758a;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -168,14 +171,14 @@
 
 .chartBar {
   flex: 1;
-  background: linear-gradient(180deg, #6D5DFB, #A99CFF);
+  background: linear-gradient(180deg, #6d5dfb, #a99cff);
   border-radius: 8px 8px 0 0;
   min-height: 20px;
 }
 
 .chartLabel {
   text-align: center;
-  color: #74758A;
+  color: #74758a;
   font-size: 0.7rem;
   margin-top: 0.4rem;
 }
@@ -203,5 +206,178 @@
     align-items: flex-start;
     gap: 0.5rem;
     flex-direction: column;
+  }
+}
+.actions,
+.tabs,
+.filters,
+.pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.tabs {
+  margin: 1.4rem 0;
+}
+.actions {
+  margin-top: 0.75rem;
+}
+.primary,
+.secondary {
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d9d8e8;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.primary {
+  background: #6d5dfb;
+  color: white;
+  border-color: #6d5dfb;
+}
+.secondary {
+  background: white;
+  color: #292a3a;
+}
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.primary:focus-visible,
+.secondary:focus-visible,
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid #a99cff;
+  outline-offset: 2px;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 0;
+}
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.7rem;
+  border: 1px solid #c8c8d6;
+  border-radius: 8px;
+  background: white;
+  color: #1b1c28;
+  width: 100%;
+  box-sizing: border-box;
+}
+.field textarea {
+  resize: vertical;
+}
+.filters {
+  align-items: flex-end;
+  margin: 1rem 0;
+}
+.filters .field {
+  flex: 1;
+  min-width: 170px;
+}
+.editor {
+  border: 1px solid #cfc9ff;
+  background: #faf9ff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+.banner {
+  background: #fff5de;
+  border: 1px solid #ead8a3;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.help {
+  color: #626378;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0.6rem 0;
+}
+.error,
+.success {
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.error {
+  background: #fff0f0;
+  color: #922b37;
+}
+.success {
+  background: #eaf8ef;
+  color: #226239;
+}
+.empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #626378;
+}
+.multiline {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+.pagination {
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+.jobItem p {
+  margin: 0.6rem 0;
+  overflow-wrap: anywhere;
+}
+.jobItem summary {
+  cursor: pointer;
+  color: #5344c9;
+  margin: 0.8rem 0;
+  font-weight: 600;
+}
+.jobItem h4 {
+  margin: 1rem 0 0.5rem;
+}
+.cardHeader {
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.cardHeader h2,
+.cardHeader h3 {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 1rem;
+  }
+  .welcomeHero {
+    padding: 1.4rem;
+  }
+  .welcomeHero h1 {
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+  .portalBadge {
+    margin-left: 0.3rem;
   }
 }
