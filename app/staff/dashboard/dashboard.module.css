@@ -1,28 +1,30 @@
 .dashboardContainer {
   min-height: 100vh;
-  background-color: #F7F7FB;
-  color: #1B1C28;
-  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #f7f7fb;
+  color: #1b1c28;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   padding: 2rem;
 }
 
-
 .navBar {
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e4e4ed;
   border-radius: 12px;
   padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-bottom: 1.5rem;
 }
 
 .logoText {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #292A3A, #6D5DFB);
+  background: linear-gradient(135deg, #292a3a, #6d5dfb);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -30,7 +32,7 @@
 
 .portalBadge {
   background-color: rgba(109, 93, 251, 0.1);
-  color: #6D5DFB;
+  color: #6d5dfb;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.25rem 0.75rem;
@@ -40,14 +42,13 @@
   text-transform: uppercase;
 }
 
-
 .welcomeHero {
   position: relative;
-  background: linear-gradient(135deg, #191A25, #292A3A);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #191a25, #292a3a);
+  color: #ffffff;
   padding: 2rem;
   border-radius: 16px;
-  border: 1px solid #292A3A;
+  border: 1px solid #292a3a;
   margin-bottom: 2rem;
   overflow: hidden;
 }
@@ -59,20 +60,19 @@
 }
 
 .welcomeHero p {
-  color: #74758A;
+  color: #74758a;
   font-size: 0.875rem;
   margin-top: 0.5rem;
   line-height: 1.6;
   max-width: 42rem;
 }
 
-
 .tabsContainer {
   display: flex;
   gap: 0.5rem;
   padding: 0.375rem;
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border: 1px solid #e4e4ed;
   border-radius: 12px;
   max-width: 28rem;
   margin-bottom: 1.5rem;
@@ -89,24 +89,25 @@
   border: none;
   cursor: pointer;
   background: transparent;
-  color: #74758A;
+  color: #74758a;
   transition: all 0.2s ease;
 }
 
 .tabButtonActive {
-  background-color: #191A25;
-  color: #FFFFFF;
+  background-color: #191a25;
+  color: #ffffff;
   box-shadow: 0 4px 6px rgba(25, 26, 37, 0.15);
 }
 
-
 .card {
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border: 1px solid #e4e4ed;
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .card:hover {
@@ -121,8 +122,8 @@
 }
 
 .actionButtonPrimary {
-  background-color: #191A25;
-  color: #FFFFFF;
+  background-color: #191a25;
+  color: #ffffff;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.625rem 1rem;
@@ -133,12 +134,12 @@
 }
 
 .actionButtonPrimary:hover {
-  background-color: #292A3A;
+  background-color: #292a3a;
 }
 
 .actionButtonSchedule {
-  background-color: #6D5DFB;
-  color: #FFFFFF;
+  background-color: #6d5dfb;
+  color: #ffffff;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -152,10 +153,9 @@
   background-color: rgba(109, 93, 251, 0.9);
 }
 
-
 .tableWrapper {
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4ED;
+  background-color: #ffffff;
+  border: 1px solid #e4e4ed;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -168,10 +168,10 @@
 }
 
 .dashboardTable th {
-  background-color: #F7F7FB;
-  border-bottom: 1px solid #E4E4ED;
+  background-color: #f7f7fb;
+  border-bottom: 1px solid #e4e4ed;
   padding: 1rem 1.5rem;
-  color: #74758A;
+  color: #74758a;
   font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -179,10 +179,9 @@
 
 .dashboardTable td {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #E4E4ED;
-  color: #1B1C28;
+  border-bottom: 1px solid #e4e4ed;
+  color: #1b1c28;
 }
-
 
 .modalOverlay {
   position: fixed;
@@ -200,9 +199,9 @@
 }
 
 .modalContent {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 16px;
-  border: 1px solid #E4E4ED;
+  border: 1px solid #e4e4ed;
   padding: 1.5rem;
   width: 100%;
   max-width: 28rem;
@@ -217,23 +216,307 @@
   display: block;
   font-size: 0.625rem;
   font-weight: 700;
-  color: #74758A;
+  color: #74758a;
   text-transform: uppercase;
   margin-bottom: 0.375rem;
 }
 
 .formInput {
   width: 100%;
-  background-color: #F7F7FB;
-  border: 1px solid #E4E4ED;
+  background-color: #f7f7fb;
+  border: 1px solid #e4e4ed;
   border-radius: 10px;
   padding: 0.625rem 0.875rem;
   font-size: 0.75rem;
-  color: #1B1C28;
+  color: #1b1c28;
   box-sizing: border-box;
 }
 
 .formInput:focus {
   outline: none;
-  border-color: #6D5DFB;
+  border-color: #6d5dfb;
+} /* Connected workspace controls; retain the original charcoal/violet design. */
+.welcomeHero p {
+  color: #d7d7e2;
 }
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.statCard {
+  padding: 1.2rem;
+  border: 1px solid #e4e4ed;
+  background: white;
+  border-radius: 14px;
+}
+.statCard span {
+  color: #626378;
+  font-size: 0.8rem;
+}
+.statCard strong {
+  display: block;
+  font-size: 1.8rem;
+  margin-top: 0.4rem;
+}
+.tabsContainer {
+  max-width: none;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+.tabButton {
+  font-size: 0.8rem;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 0.7rem 0;
+}
+.secondary {
+  display: inline-block;
+  background: white;
+  color: #292a3a;
+  border: 1px solid #cbcbd9;
+  border-radius: 9px;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.actionButtonPrimary,
+.actionButtonSchedule {
+  font-size: 0.85rem;
+}
+.secondary:disabled,
+.actionButtonPrimary:disabled,
+.actionButtonSchedule:disabled,
+.tabButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.dashboardContainer button:focus-visible,
+.dashboardContainer a:focus-visible,
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: 3px solid #a99cff;
+  outline-offset: 3px;
+}
+.filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.2rem 0;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0.9rem 0;
+  min-width: 0;
+}
+.filters .field {
+  flex: 1;
+  min-width: 180px;
+  margin: 0;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #c8c8d6;
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 400;
+  background: #fff;
+  color: #1b1c28;
+  min-width: 0;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #6d5dfb;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.help {
+  color: #626378;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+.record {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e4e4ed;
+  overflow-wrap: anywhere;
+}
+.record p {
+  margin: 0.5rem 0;
+}
+.preview {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.6;
+}
+.eyebrow {
+  color: #6250d5;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  background: #eeebff;
+  color: #5040ba;
+  border: 1px solid #ded8ff;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.time {
+  font-weight: 600;
+}
+.empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: #626378;
+}
+.empty p {
+  margin-top: 0.5rem;
+}
+.error,
+.success,
+.warning {
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+.error {
+  color: #922b37;
+  background: #fff0f0;
+}
+.success {
+  color: #226239;
+  background: #eaf8ef;
+}
+.warning {
+  color: #745414;
+  background: #fff6df;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+.tableWrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+.dashboardTable {
+  min-width: 660px;
+}
+.dashboardTable td,
+.dashboardTable th {
+  padding: 1rem;
+}
+.modalContent {
+  margin: auto;
+  max-width: 680px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  color: #1b1c28;
+}
+.modalContent::backdrop {
+  background: rgba(25, 26, 37, 0.65);
+  backdrop-filter: blur(3px);
+}
+.modalContent:not([open]) {
+  display: none;
+}
+.dialogBody {
+  margin-top: 1rem;
+  overflow-wrap: anywhere;
+}
+.dialogBody p {
+  margin: 0.7rem 0;
+  line-height: 1.6;
+}
+.dialogBody h4 {
+  margin-top: 1rem;
+}
+.multiline {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .navBar {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+}
+@media (max-width: 600px) {
+  .dashboardContainer {
+    padding: 1rem;
+  }
+  .welcomeHero {
+    padding: 1.5rem;
+  }
+  .welcomeHero h1 {
+    font-size: 1.5rem;
+  }
+  .card {
+    padding: 1rem;
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .cardHeader {
+    flex-wrap: wrap;
+  }
+  .modalContent {
+    padding: 1rem;
+    max-width: calc(100vw - 1.5rem);
+  }
+  .tabsContainer {
+    width: 100%;
+  }
+  .tabButton {
+    padding: 0.6rem;
+    font-size: 0.7rem;
+  }
+  .portalBadge {
+    margin-left: 0.4rem;
+  }
+}
+
+.dashboardContainer button { font-family: inherit; }
+
+@media(max-width:600px) { .tabsContainer { display:grid;grid-template-columns:1fr 1fr; } }
