@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./auth.module.css";
 import { createClient } from "../../lib/supabase/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AuthPage() {
   return <Suspense fallback={<p role="status">Loading sign in…</p>}><AuthEntry /></Suspense>;
@@ -644,8 +645,7 @@ if (
                     <input type="checkbox" />
                     Remember me
                   </label>
-
-                  <a href="#">Forgot password?</a>
+                  <a href="/auth/forgot-password">Forgot password?</a>
                 </div>
               )}
 
